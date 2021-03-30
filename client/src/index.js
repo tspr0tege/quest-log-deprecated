@@ -1,4 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
+import App from './components/App.jsx';
 
-render(<h1>Quest Log</h1>, document.getElementById('app'))
+render(<App/>, document.getElementById('app'))
