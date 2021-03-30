@@ -1,15 +1,9 @@
-const express = require('express');
-const path = require('path');
-
-const app = express();
-const port = 3000;
-
-const index = path.resolve(__dirname, '../client/src/index.js');
-
-app.use('/', express.static(path.resolve(__dirname, '../client/src'), {index: 'index.html'}));
+const express = require('express')
+const app = express()
+const port = 3000
 
 app.get('/', (req, res) => {
-  res.send();
+  res.send('Hello World!')
 })
 
 app.listen(port, () => {
