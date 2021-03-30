@@ -1,0 +1,136 @@
+/* #App {
+  height: 100px;
+  width: 100px;
+  background-color: aqua;
+} */
+
+:root {
+  --color1: #eee;
+  --color2: #cce;
+  --color3: orange;
+
+  --partialFill: 80%;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#container {
+  height: 100vh;
+  width: 100vw;
+  text-align: center;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: fit-content;
+  background-color: var(--color2);
+}
+
+.nav-btn {
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+  float: left;
+  background-color: var(--color3);
+}
+
+#login-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  margin: auto;
+  border: 1px black solid;
+  background-color: var(--color3);
+  padding: 3px;
+}
+
+#main-field {
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+  margin: auto;
+}
+
+.main-module {
+  height: 600px;
+  width: auto;
+  background-color: var(--color1);
+  margin: 20px;
+  flex-grow: 1;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+#to-do {
+  background-color: blueviolet;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#profile {
+  background-color: cornflowerblue;
+  padding: 12px;
+  width: var(--partialFill);
+}
+
+#profile-photo {
+  height: 200px;
+  width: 200px;
+  background-color: aquamarine;
+  margin: 10px;
+}
+
+#exp-bar {
+  height: 30px;
+  width: var(--partialFill);
+  background-color: #666;
+  margin: 0 auto;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+#exp-fill {
+  display: block;
+  background-color: green;
+  height: 100%;
+  width: 45%;
+}
+
+#quest-log-hud {
+  background-color: blue;
+  height: 100px;
+  width: 80%;
+  border-radius: 10px;
+  margin-bottom: 40px;
+
+}
+
+#habit-grind {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#habit-list {
+  max-height: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.habit-tab {
+  margin: 10px 20px;
+  width: auto;
+  border-radius: 10px;
+  border: solid black 1px;
+  background-color: var(--color2);
+  text-align: center;
+  padding: 12px;
+}
