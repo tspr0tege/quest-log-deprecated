@@ -16,10 +16,18 @@ class App extends React.Component {
         <div id="main-field">
           <div id="to-do" className="main-module">
             <h2>Character Page</h2>
-            <div id="profile">
-              <div id="profile-photo"></div>
-              <h3>Name</h3>
-              <div id="exp-bar"><span id="exp-fill"></span></div>
+            <div id="user-hud">
+              <div id="profile">
+                <div id="profile-photo"></div>
+                <h3>Name</h3>
+                <p>Values/Motivations</p>
+                <p>More stuff</p>
+                <div className="break"></div>
+              </div>
+              <div>
+                <h3>EXP toward next level:</h3>
+                <div id="exp-bar"><span id="exp-fill"></span></div>
+              </div>
             </div>
             <div id="quest-log-hud"></div>
           </div>

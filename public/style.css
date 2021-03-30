@@ -10,6 +10,8 @@
   --color3: orange;
 
   --partialFill: 80%;
+
+  --roundCorners: 10px;
 }
 
 * {
@@ -30,6 +32,7 @@ nav {
   width: 100%;
   height: fit-content;
   background-color: var(--color2);
+  padding-left: 10px;
 }
 
 .nav-btn {
@@ -37,6 +40,7 @@ nav {
   width: 40px;
   margin: 5px;
   float: left;
+  border-radius: 10px;
   background-color: var(--color3);
 }
 
@@ -51,41 +55,51 @@ nav {
 }
 
 #main-field {
-  width: 80%;
+  width: var(--partialFill);
   display: flex;
   justify-content: space-evenly;
   margin: auto;
+  padding-top: 50px;
 }
 
 .main-module {
-  height: 600px;
+  height: 700px;
   width: auto;
   background-color: var(--color1);
   margin: 20px;
   flex-grow: 1;
   padding: 30px;
+  padding-bottom: 50px;
   border-radius: 10px;
 }
 
 #to-do {
-  background-color: blueviolet;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
 
-#profile {
-  background-color: cornflowerblue;
-  padding: 12px;
+#to-do > div {
+  background-color: var(--color2);
+  border-radius: var(--roundCorners);
+}
+
+#user-hud {
+  padding: 20px;
   width: var(--partialFill);
+}
+
+#profile {
+  margin-bottom: 10px;
 }
 
 #profile-photo {
   height: 200px;
   width: 200px;
   background-color: aquamarine;
-  margin: 10px;
+  /* margin: 10px; */
+  float: left;
 }
 
 #exp-bar {
@@ -105,12 +119,8 @@ nav {
 }
 
 #quest-log-hud {
-  background-color: blue;
   height: 100px;
-  width: 80%;
-  border-radius: 10px;
-  margin-bottom: 40px;
-
+  width: var(--partialFill);
 }
 
 #habit-grind {
@@ -123,6 +133,9 @@ nav {
   max-height: 80%;
   display: flex;
   flex-direction: column;
+  padding: 15px;
+  border: #ccc solid 1px;
+  border-radius: var(--roundCorners);
 }
 
 .habit-tab {
@@ -133,4 +146,15 @@ nav {
   background-color: var(--color2);
   text-align: center;
   padding: 12px;
+}
+
+
+/* General Use */
+
+.clickable {
+  cursor: pointer;
+}
+
+.break {
+  clear: both;
 }
