@@ -12,7 +12,7 @@
   --partialFill: 80%;
   --roundCorners: 10px;
 
-  --expBar: 30%
+  --expBar: 0
 }
 
 * {
@@ -83,6 +83,7 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  max-width: 45%;
 }
 
 #to-do > div {
@@ -99,12 +100,28 @@ nav {
   margin-bottom: 10px;
 }
 
+
+/* display: flex;
+flex-direction: column;
+justify-content: space-evenly; */
+
 #profile-photo {
   height: 200px;
   width: 200px;
   background-color: aquamarine;
   /* margin: 10px; */
   float: left;
+  margin-right: 10px;
+  overflow: hidden;
+}
+
+#profile-photo img {
+  object-fit: contain;
+}
+
+.level {
+  font-size: 2em;
+  font-weight: 600;
 }
 
 #exp-bar {
@@ -146,8 +163,6 @@ nav {
 }
 
 #add-task {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
   margin: 3px;
 }
@@ -155,6 +170,7 @@ nav {
 .text-box {
   height: 25px;
   flex-grow: 1;
+  min-width: 100px;
 }
 
 .add-task-btn {
@@ -183,13 +199,19 @@ nav {
   justify-content: space-between;
 }
 
+#add-habit {
+  border-top: #ccc solid 1px;
+  padding: 6px 20px;
+  max-width: 50%;
+  margin: auto;
+}
+
 #habit-list {
   max-height: 80%;
   display: flex;
   flex-direction: column;
   padding: 15px;
-  border: #ccc solid 1px;
-  border-radius: var(--roundCorners);
+  overflow-y: scroll;
 }
 
 .habit-tab {
@@ -199,7 +221,10 @@ nav {
   border: solid black 1px;
   background-color: var(--color2);
   text-align: center;
-  padding: 12px;
+  padding: 12px 16px;
+  display: flex;
+  /* flex-direction: row; */
+  justify-content: space-between;
 }
 
 
@@ -211,4 +236,14 @@ nav {
 
 .break {
   clear: both;
+}
+
+.vertical-align {
+  display: flex;
+  align-items: center;
+}
+
+.light-border {
+  border: #ccc solid 1px;
+  border-radius: var(--roundCorners);
 }

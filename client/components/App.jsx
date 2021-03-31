@@ -2,6 +2,8 @@ import React from 'react';
 
 import MainToDo from './MainToDo.jsx';
 import HabitList from './HabitList.jsx';
+import Profile from './Profile.jsx';
+import AddHabit from './AddHabit.jsx'
 
 const root = document.documentElement;
 
@@ -12,18 +14,27 @@ class App extends React.Component {
       todos: ['Create a new App', 'Show it off', 'Be a boss'],
       habits: ['Habit 1', 'Habit2', 'Habit3', 'MMA'],
       userdata: {
-        username: 'Squall',
-        values: ['Fun', 'Integrity', 'Growth', 'Love', 'Freedom']
+        name: 'Squall',
+        values: ['Fun', 'Integrity', 'Growth', 'Love', 'Freedom'],
+        image: '/dummydata/Squall.jpg',
+        level: 1
       },
-      expBar: 10
+      expBar: 0
     };
     this.addNewTask = this.addNewTask.bind(this);
     this.completeTask = this.completeTask.bind(this);
     this.updateExpBar = this.updateExpBar.bind(this);
+    this.addNewHabit = this. addNewHabit.bind(this);
+    this.levelUp = this.levelUp.bind(this);
   }
 
   addNewTask (newTask) {
     this.state.todos.push(newTask);
+    this.setState({});
+  }
+
+  addNewHabit (newHabit) {
+    this.state.habits.push(newHabit);
     this.setState({});
   }
 
@@ -32,12 +43,24 @@ class App extends React.Component {
     this.setState({
       todos: this.state.todos.slice(1)
     });
-    this.updateExpBar(5);
+    this.updateExpBar(20);
+  }
+
+  levelUp () {
+    root.style.setProperty('--expBar', `0`);
+    this.setState({
+      expBar: 0,
+      userdata: {...this.state.userdata,
+                 level: this.state.userdata.level + 1}
+    });
   }
 
   updateExpBar (pts) {
     // let fill = this.state.expBar + pts;
-    root.style.setProperty('--expBar', `${this.state.expBar + pts}%`)
+    if (this.state.expBar + pts >= 100) {
+      return this.levelUp();
+    }
+    root.style.setProperty('--expBar', `${this.state.expBar + pts}%`);
     this.setState({
       expBar: this.state.expBar + pts
     });
@@ -59,13 +82,7 @@ class App extends React.Component {
           <div id="to-do" className="main-module">
             <h2>Character Page</h2>
             <div id="user-hud">
-              <div id="profile">
-                <div id="profile-photo"></div>
-                <h3>Name</h3>
-                <p>Values/Motivations</p>
-                <p>More stuff</p>
-                <div className="break"></div>
-              </div>
+              <Profile userdata={this.state.userdata}/>
               <div>
                 <h3>EXP toward next level:</h3>
                 <div id="exp-bar"><span id="exp-fill"></span></div>
@@ -74,7 +91,10 @@ class App extends React.Component {
             <MainToDo todos={this.state.todos} addNewTask={this.addNewTask} completeTask={this.completeTask} />
           </div>
           <div id="habit-grind" className="main-module">
-            <h2>Level Grind</h2>
+            <div className='light-border'>
+              <h2>Level Grind</h2>
+              <AddHabit addNewHabit={this.addNewHabit}/>
+            </div>
             <HabitList habits={this.state.habits} getExp={this.updateExpBar}/>
           </div>
         </div>

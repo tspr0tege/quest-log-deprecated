@@ -1,8 +1,8 @@
 import React from 'react';
 
-class NewToDo extends React.Component {
+class AddHabit extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       value: ''
     };
@@ -12,33 +12,33 @@ class NewToDo extends React.Component {
   }
 
   changeValue (e) {
-    // console.log(`"This" value: ${this} \n Arguments: ${e.target.value}`);
     this.setState({
       value: e.target.value
     });
   }
 
   handleSubmit () {
-    let newTask = this.state.value;
+    let newHabit = this.state.value;
     this.setState({value: ''});
-    this.props.addNewTask(newTask);
+    this.props.addNewHabit(newHabit);
   }
 
   handleKeyUp (e) {
+    // console.log(e);
     if (e.key === 'Enter') {
       this.handleSubmit();
     }
   }
 
   render () {
+
     return(
-      <div id='add-task' className='vertical-align'>
-        <label>Add a task: </label>
-        <input type="text" className='text-box' value={this.state.value} onChange={this.changeValue} onKeyUp={this.handleKeyUp}></input>
+      <div id='add-habit' className='vertical-align'>
+        <input type="text" className='text-box' value={this.state.value} onChange={this.changeValue} onKeyUp={this.handleKeyUp} placeholder='Add a new habit...'></input>
         <button href='#' className='add-task-btn' onClick={this.handleSubmit}>+</button>
       </div>
     );
   }
 }
 
-export default NewToDo;
+export default AddHabit;
