@@ -10,14 +10,19 @@
   --color3: orange;
 
   --partialFill: 80%;
-
   --roundCorners: 10px;
+
+  --expBar: 30%
 }
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+html {
+  font-family: Helvetica;
 }
 
 #container {
@@ -115,12 +120,61 @@ nav {
   display: block;
   background-color: green;
   height: 100%;
-  width: 45%;
+  width: var(--expBar);
 }
 
 #quest-log-hud {
-  height: 100px;
+  height: auto;
+  padding: 10px;
   width: var(--partialFill);
+}
+
+#quest-log-hud p{
+  margin: auto;
+}
+
+.current-task {
+  padding: 5px;
+  background-color: var(--color1);
+  border-radius: var(--roundCorners);
+  height: auto;
+  margin: 3px;
+}
+
+.current-task span {
+  font-size: 1.8em;
+}
+
+#add-task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3px;
+}
+
+.text-box {
+  height: 25px;
+  flex-grow: 1;
+}
+
+.add-task-btn {
+	box-shadow: inset 0px 1px 0px 0px #97c4fe;
+	background: linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
+	background-color: #3d94f6;
+	border-radius: 6px;
+	border: 1px solid #337fed;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 0 6px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #1570cd;
+}
+.add-task-btn:hover {
+	background:linear-gradient(to bottom, #1e62d0 5%, #3d94f6 100%);
+	background-color:#1e62d0;
 }
 
 #habit-grind {

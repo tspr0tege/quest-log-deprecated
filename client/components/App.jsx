@@ -1,11 +1,53 @@
 import React from 'react';
 
+import MainToDo from './MainToDo.jsx';
+import HabitList from './HabitList.jsx';
+
+const root = document.documentElement;
+
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      todos: ['Create a new App', 'Show it off', 'Be a boss'],
+      habits: ['Habit 1', 'Habit2', 'Habit3', 'MMA'],
+      userdata: {
+        username: 'Squall',
+        values: ['Fun', 'Integrity', 'Growth', 'Love', 'Freedom']
+      },
+      expBar: 10
+    };
+    this.addNewTask = this.addNewTask.bind(this);
+    this.completeTask = this.completeTask.bind(this);
+    this.updateExpBar = this.updateExpBar.bind(this);
+  }
+
+  addNewTask (newTask) {
+    this.state.todos.push(newTask);
+    this.setState({});
+  }
+
+  completeTask () {
+    if (this.state.todos.length < 1) { return; }
+    this.setState({
+      todos: this.state.todos.slice(1)
+    });
+    this.updateExpBar(5);
+  }
+
+  updateExpBar (pts) {
+    // let fill = this.state.expBar + pts;
+    root.style.setProperty('--expBar', `${this.state.expBar + pts}%`)
+    this.setState({
+      expBar: this.state.expBar + pts
+    });
+  }
+
   render () {
     return (
       <div id="container">
 
-        <h1>Quest Log</h1>
+        {/* <h1>Quest Log</h1> */}
         <header></header>
         <nav>
           <div className="nav-btn"></div>
@@ -29,16 +71,11 @@ class App extends React.Component {
                 <div id="exp-bar"><span id="exp-fill"></span></div>
               </div>
             </div>
-            <div id="quest-log-hud"></div>
+            <MainToDo todos={this.state.todos} addNewTask={this.addNewTask} completeTask={this.completeTask} />
           </div>
           <div id="habit-grind" className="main-module">
             <h2>Level Grind</h2>
-            <div id="habit-list">
-              <div className="habit-tab">Habit 1</div>
-              <div className="habit-tab">Habit 2</div>
-              <div className="habit-tab">Habit 3</div>
-              <div className="habit-tab">MMA</div>
-            </div>
+            <HabitList habits={this.state.habits} getExp={this.updateExpBar}/>
           </div>
         </div>
 

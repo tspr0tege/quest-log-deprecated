@@ -3,6 +3,7 @@ const BUILD_DIR = path.resolve(__dirname, './public/build');
 const APP_DIR = path.resolve(__dirname, './client');
 
 module.exports = {
+  mode: 'development',
   entry: {
     main: APP_DIR + '/index.js'
   },
