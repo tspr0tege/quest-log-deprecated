@@ -225,6 +225,33 @@ justify-content: space-evenly; */
   display: flex;
   /* flex-direction: row; */
   justify-content: space-between;
+  align-items: center;
+}
+
+/* Modals */
+
+.modal-div * {
+  margin: 5px;
+}
+
+#todo-list {
+  margin: 10px;
+}
+
+.todo-item-controls {
+  color: var(--color3);
+  display: flex;
+  margin-left: 20px;
+}
+
+.todo-item-controls i {
+  padding: 4px;
+}
+
+.todo-item-controls i:hover {
+  color: white;
+  background-color: black;
+  border-radius: 50%;
 }
 
 
