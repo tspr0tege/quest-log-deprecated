@@ -14,6 +14,7 @@
   },
   "scripts": {
     "server-dev": "nodemon ./server/index.js",
-    "webpack-dev": "./node_modules/.bin/webpack -w"
+    "webpack-dev": "./node_modules/.bin/webpack -w",
+    "start": "node ./server/index.js"
   }
 }
