@@ -44,6 +44,7 @@ class App extends React.Component {
     this.levelUp = this.levelUp.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.prioritizeTask = this.prioritizeTask.bind(this);
   }
 
 
@@ -54,12 +55,17 @@ class App extends React.Component {
   }
 
   deleteTask (e) {
-    console.log(e.target.parentNode.parentNode.dataset.index);
-    // this.setState({});
+    // console.log(e.target.parentNode.parentNode.dataset.index);
+    let index = e.target.parentNode.parentNode.dataset.index;
+    this.state.todos.splice(index, 1);
+    this.setState({});
   }
 
-  prioritizeTask (index) {
-
+  prioritizeTask (e) {
+    let index = e.target.parentNode.parentNode.dataset.index;
+    var newFocus = this.state.todos.splice(index, 1);
+    this.state.todos.unshift(newFocus);
+    this.setState({});
   }
 
   addNewHabit (newHabit) {
@@ -108,16 +114,16 @@ class App extends React.Component {
         {/* <h1>Quest Log</h1> */}
         <header></header>
         <nav>
-          <div className="nav-btn" onClick={this.toggleModal}>Toggle Modal</div>
-          <div className="nav-btn"></div>
-          <div className="nav-btn"></div>
+          <div className="nav-btn clickable" onClick={this.toggleModal}><i className="fas fa-list-alt"></i></div>
+          <div className="nav-btn clickable"></div>
+          <div className="nav-btn clickable"></div>
           <div id="login-btn">Login</div>
         </nav>
         <div id="main-field">
         <Modal isOpen={this.state.showModal} style={customStyles}>
            {/* contentLabel="Minimal Modal Example" */}
-           <ToDosModal todos={this.state.todos} deleteTask={this.deleteTask}/>
-          <button onClick={this.toggleModal}>Close Modal</button>
+           <ToDosModal todos={this.state.todos} deleteTask={this.deleteTask} prioritizeTask={this.prioritizeTask}/>
+          <button className='add-task-btn' onClick={this.toggleModal}>Close Modal</button>
         </Modal>
           <div id="to-do" className="main-module">
             <h2>Character Page</h2>
