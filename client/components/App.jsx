@@ -6,6 +6,9 @@ import HabitList from './HabitList.jsx';
 import Profile from './Profile.jsx';
 import AddHabit from './AddHabit.jsx';
 import ToDosModal from './ToDosModal.jsx';
+import NewProfileModal from './NewProfileModal.jsx';
+
+// import userdata from '../dummydata/userdata';
 
 const root = document.documentElement;
 
@@ -26,15 +29,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: '',
+      level: 1,
+      values: [],
+      image: '/dummydata/Squall.jpg',
+      todos: [],
+      habits: [],
       showModal: false,
-      todos: ['Create a new App', 'Show it off', 'Be a boss'],
-      habits: ['Habit 1', 'Habit2', 'Habit3', 'MMA'],
-      userdata: {
-        name: 'Squall',
-        values: ['Fun', 'Integrity', 'Growth', 'Love', 'Freedom'],
-        image: '/dummydata/Squall.jpg',
-        level: 1
-      },
+      newUserModal: false,
       expBar: 0
     };
     this.addNewTask = this.addNewTask.bind(this);
@@ -45,39 +47,62 @@ class App extends React.Component {
     this.toggleModal = this.toggleModal.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
     this.prioritizeTask = this.prioritizeTask.bind(this);
+    this.save = this.save.bind(this);
+    this.toggleSignupModal = this.toggleSignupModal.bind(this);
+    this.createNewUser = this.createNewUser.bind(this);
   }
 
 
+  save () {
+    window.localStorage.setItem('userdata', JSON.stringify(
+      {
+        name: this.state.name,
+        level: this.state.level,
+        values: this.state.values,
+        image: this.state.image,
+        todos: this.state.todos,
+        habits: this.state.habits,
+        expBar: this.state.expBar
+      }
+    ));
+  }
+
+  createNewUser (name, values) {
+    this.setState({
+      name,
+      values,
+      toggleSignupModal: false
+    }, this.save);
+  }
 
   addNewTask (newTask) {
     this.state.todos.push(newTask);
-    this.setState({});
+    this.setState({}, this.save);
   }
 
   deleteTask (e) {
     // console.log(e.target.parentNode.parentNode.dataset.index);
     let index = e.target.parentNode.parentNode.dataset.index;
     this.state.todos.splice(index, 1);
-    this.setState({});
+    this.setState({}, this.save);
   }
 
   prioritizeTask (e) {
     let index = e.target.parentNode.parentNode.dataset.index;
     var newFocus = this.state.todos.splice(index, 1);
     this.state.todos.unshift(newFocus);
-    this.setState({});
+    this.setState({}, this.save);
   }
 
   addNewHabit (newHabit) {
     this.state.habits.push(newHabit);
-    this.setState({});
+    this.setState({}, this.save);
   }
 
   completeTask () {
     if (this.state.todos.length < 1) { return; }
-    this.setState({
-      todos: this.state.todos.slice(1)
-    });
+    this.state.todos = this.state.todos.slice(1);
+    this.setState({});
     this.updateExpBar(20);
   }
 
@@ -85,9 +110,8 @@ class App extends React.Component {
     root.style.setProperty('--expBar', `0`);
     this.setState({
       expBar: 0,
-      userdata: {...this.state.userdata,
-                 level: this.state.userdata.level + 1}
-    });
+      level: this.state.level + 1
+    }, this.save);
   }
 
   updateExpBar (pts) {
@@ -98,12 +122,18 @@ class App extends React.Component {
     root.style.setProperty('--expBar', `${this.state.expBar + pts}%`);
     this.setState({
       expBar: this.state.expBar + pts
-    });
+    }, this.save);
   }
 
   toggleModal () {
     this.setState({
       showModal: !this.state.showModal
+    });
+  }
+
+  toggleSignupModal () {
+    this.setState({
+      newUserModal: !this.state.newUserModal
     });
   }
 
@@ -120,6 +150,10 @@ class App extends React.Component {
           <div id="login-btn">Login</div>
         </nav>
         <div id="main-field">
+        <Modal isOpen={this.state.newUserModal} style={customStyles}>
+          <NewProfileModal createNewUser={this.createNewUser}/>
+          <button className='add-task-btn' onClick={this.toggleSignupModal}>Close Signup</button>
+        </Modal>
         <Modal isOpen={this.state.showModal} style={customStyles}>
            {/* contentLabel="Minimal Modal Example" */}
            <ToDosModal todos={this.state.todos} deleteTask={this.deleteTask} prioritizeTask={this.prioritizeTask}/>
@@ -128,7 +162,12 @@ class App extends React.Component {
           <div id="to-do" className="main-module">
             <h2>Character Page</h2>
             <div id="user-hud">
-              <Profile userdata={this.state.userdata}/>
+              <Profile userdata={{
+                values: this.state.values,
+                image: this.state.image,
+                name: this.state.name,
+                level: this.state.level
+                }}/>
               <div>
                 <h3>EXP toward next level:</h3>
                 <div id="exp-bar"><span id="exp-fill"></span></div>
@@ -148,6 +187,24 @@ class App extends React.Component {
       </div>
     );
   }
+
+  componentDidMount () {
+    let userdata = JSON.parse(window.localStorage.userdata);
+
+    if (userdata === null) {
+      return this.toggleSignupModal();
+    }
+
+    var userdataKeys = Object.keys(userdata);
+    console.log(userdataKeys);
+
+    for (var i = 0; i < userdataKeys.length; i++) {
+      this.state[userdataKeys[i]] = userdata[userdataKeys[i]];
+    }
+    root.style.setProperty('--expBar', `${this.state.expBar}%`);
+    this.setState({});
+  }
+
 }
 
 export default App;
