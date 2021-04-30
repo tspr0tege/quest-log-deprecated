@@ -189,11 +189,11 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    let userdata = JSON.parse(window.localStorage.userdata);
-
-    if (userdata === null) {
+    if (!window.localStorage.userdata) {
       return this.toggleSignupModal();
     }
+
+    let userdata = JSON.parse(window.localStorage.userdata);
 
     var userdataKeys = Object.keys(userdata);
     console.log(userdataKeys);
