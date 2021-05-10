@@ -121,7 +121,10 @@ justify-content: space-evenly; */
 }
 
 #profile-photo img {
-  object-fit: contain;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center center;
 }
 
 .level {
