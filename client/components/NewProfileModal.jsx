@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class newProfileModal extends React.Component {
   constructor (props) {
@@ -11,13 +12,32 @@ class newProfileModal extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.changeValue = this.changeValue.bind(this);
     this.checkLimit = this.checkLimit.bind(this);
+    this.fileUpload = this.fileUpload.bind(this);
+
+    this.fileInput = React.createRef();
   };
 
   handleSubmit (e) {
-    let valuesArray = this.state.values.map(checkbox => {
-      return checkbox.value;
-    })
-    this.props.createNewUser(this.state.name, valuesArray);
+    e.preventDefault();
+    this.fileUpload(this.fileInput.current.files[0])
+    .then((response) => {
+      let valuesArray = this.state.values.map(checkbox => {
+        return checkbox.value;
+      })
+      console.log(response.data.path);
+      this.props.createNewUser(this.state.name, valuesArray, response.data.path);
+    });
+  }
+
+  fileUpload(file){
+    const formData = new FormData();
+    formData.append('avatar', file);
+    const config = {
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+    }
+    return  axios.post('/upload', formData, config);
   }
 
   changeValue (e) {
@@ -65,7 +85,11 @@ class newProfileModal extends React.Component {
               {renderValues}
             </div>
           </div>
-          <div>Picture to go here.</div>
+          <div>
+
+              Upload a profile picture
+              <input type='file' accept='image/*' name='avatar' ref={this.fileInput} onChange={() => {console.log(this.fileInput.current.files[0])}}/>
+          </div>
           <button className='add-task-btn' onClick={this.handleSubmit}>Submit</button>
         </form>
       </div>

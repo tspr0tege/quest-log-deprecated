@@ -32,7 +32,7 @@ class App extends React.Component {
       name: '',
       level: 1,
       values: [],
-      image: '/dummydata/Squall.jpg',
+      image: 'https://i.ibb.co/frdRpGb/lhlabx3p9cb21.jpg',
       todos: [],
       habits: [],
       showModal: false,
@@ -67,11 +67,12 @@ class App extends React.Component {
     ));
   }
 
-  createNewUser (name, values) {
+  createNewUser (name, values, image) {
     this.setState({
       name,
       values,
-      toggleSignupModal: false
+      image,
+      newUserModal: false
     }, this.save);
   }
 
@@ -87,7 +88,7 @@ class App extends React.Component {
     this.setState({}, this.save);
   }
 
-  prioritizeTask (e) {
+  prioritizeTask (e) {toggleSignup
     let index = e.target.parentNode.parentNode.dataset.index;
     var newFocus = this.state.todos.splice(index, 1);
     this.state.todos.unshift(newFocus);
@@ -189,7 +190,7 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    if (!window.localStorage.userdata) {
+    if (!window.localStorage.getItem('userdata')) {
       return this.toggleSignupModal();
     }
 
