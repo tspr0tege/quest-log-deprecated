@@ -35,7 +35,7 @@ class AddHabit extends React.Component {
     return(
       <div id='add-habit' className='vertical-align'>
         <input type='text' className='text-box' value={this.state.value} onChange={this.changeValue} onKeyUp={this.handleKeyUp} placeholder='Add a new habit...'></input>
-        <button href='#' className='add-task-btn' onClick={this.handleSubmit}>+</button>
+        <button href='#' className='gem-btn' onClick={this.handleSubmit}>Submit New Habit</button>
       </div>
     );
   }

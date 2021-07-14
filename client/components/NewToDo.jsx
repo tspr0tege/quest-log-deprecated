@@ -33,9 +33,9 @@ class NewToDo extends React.Component {
   render () {
     return(
       <div id='add-task' className='vertical-align'>
-        <label>Add a task: </label>
-        <input type="text" className='text-box' value={this.state.value} onChange={this.changeValue} onKeyUp={this.handleKeyUp}></input>
-        <button href='#' className='add-task-btn' onClick={this.handleSubmit}>+</button>
+        <label></label>
+        <input type="text" className='text-box' value={this.state.value} onChange={this.changeValue} onKeyUp={this.handleKeyUp} placeholder='Add a new task...'></input>
+        <button href='#' className='gem-btn' onClick={this.handleSubmit}>Submit New Task</button>
       </div>
     );
   }

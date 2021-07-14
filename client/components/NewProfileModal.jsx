@@ -90,7 +90,7 @@ class newProfileModal extends React.Component {
               Upload a profile picture
               <input type='file' accept='image/*' name='avatar' ref={this.fileInput} onChange={() => {console.log(this.fileInput.current.files[0])}}/>
           </div>
-          <button className='add-task-btn' onClick={this.handleSubmit}>Submit</button>
+          <button className='gem-btn' onClick={this.handleSubmit}>Submit</button>
         </form>
       </div>
     )

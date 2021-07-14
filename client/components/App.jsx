@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-import MainToDo from './MainToDo.jsx';
+import NewToDo from './NewToDo.jsx';
 import HabitList from './HabitList.jsx';
 import Profile from './Profile.jsx';
 import AddHabit from './AddHabit.jsx';
@@ -77,6 +77,7 @@ class App extends React.Component {
   }
 
   addNewTask (newTask) {
+    if (!newTask) {return;}
     this.state.todos.push(newTask);
     this.setState({}, this.save);
   }
@@ -96,6 +97,7 @@ class App extends React.Component {
   }
 
   addNewHabit (newHabit) {
+    if (!newHabit) {return;}
     this.state.habits.push(newHabit);
     this.setState({}, this.save);
   }
@@ -144,47 +146,84 @@ class App extends React.Component {
 
         {/* <h1>Quest Log</h1> */}
         <header></header>
-        <nav>
+        <nav className="bubble-head">
           <div className="nav-btn clickable" onClick={this.toggleModal}><i className="fas fa-list-alt"></i></div>
           <div className="nav-btn clickable"></div>
           <div className="nav-btn clickable"></div>
           <div id="login-btn">Login</div>
         </nav>
         <div id="main-field">
-        <Modal isOpen={this.state.newUserModal} style={customStyles}>
-          <NewProfileModal createNewUser={this.createNewUser}/>
-          <button className='add-task-btn' onClick={this.toggleSignupModal}>Close Signup</button>
-        </Modal>
-        <Modal isOpen={this.state.showModal} style={customStyles}>
-           {/* contentLabel="Minimal Modal Example" */}
-           <ToDosModal todos={this.state.todos} deleteTask={this.deleteTask} prioritizeTask={this.prioritizeTask}/>
-          <button className='add-task-btn' onClick={this.toggleModal}>Close Modal</button>
-        </Modal>
-          <div id="to-do" className="main-module">
-            <h2>Character Page</h2>
-            <div id="user-hud">
-              <Profile userdata={{
-                values: this.state.values,
-                image: this.state.image,
-                name: this.state.name,
-                level: this.state.level
-                }}/>
+          <Modal isOpen={this.state.newUserModal} style={customStyles}>
+            <NewProfileModal createNewUser={this.createNewUser}/>
+            <button className='add-task-btn' onClick={this.toggleSignupModal}>Close Signup</button>
+          </Modal>
+          <Modal isOpen={this.state.showModal} style={customStyles}>
+            {/* contentLabel="Minimal Modal Example" */}
+            <ToDosModal todos={this.state.todos} deleteTask={this.deleteTask} prioritizeTask={this.prioritizeTask}/>
+            <button className='add-task-btn' onClick={this.toggleModal}>Close Modal</button>
+          </Modal>
+
+          {/* Character Sheet */}
+          <div className="main-module">
+            <div className="module-head">
+              <h2>Character Page</h2>
+            </div>
+            <div className="inner-body">
               <div>
-                <h3>EXP toward next level:</h3>
-                <div id="exp-bar"><span id="exp-fill"></span></div>
+                <div className="flat-box">
+                  <Profile userdata={{
+                    values: this.state.values,
+                    image: this.state.image,
+                    name: this.state.name,
+                    level: this.state.level
+                  }}/>
+                  <div>
+                    <h3>EXP toward next level:</h3>
+                    <div id="exp-bar"><span id="exp-fill"></span></div>
+                  </div>              
+                </div>
               </div>
             </div>
-            <MainToDo todos={this.state.todos} addNewTask={this.addNewTask} completeTask={this.completeTask} />
           </div>
-          <div id="habit-grind" className="main-module">
-            <div className='light-border'>
-              <h2>Level Grind</h2>
-              <AddHabit addNewHabit={this.addNewHabit}/>
-            </div>
-            <HabitList habits={this.state.habits} getExp={this.updateExpBar}/>
-          </div>
-        </div>
 
+          {/* Quest Log: To-Do module */}
+          <div className="main-module"> 
+            <div className="module-head">
+              <h2>Quest Log</h2>
+            </div>
+            <div id="quest-log-hud" className="inner-body">
+              <div>
+                <div className="flat-box" 
+                  // Temporary band-aid fix
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center'
+                  }}>
+
+                  <h3>Current task:</h3>
+                  <p id="current-task" className="bubble-head clickable" onClick={this.completeTask}>{this.state.todos[0] || "All tasks completed!"}</p>
+                  <p style={{fontSize: '.9rem', color: '#aaa', marginTop: '-6px'}}>NOTE: Click the box above to mark the task completed.</p>
+                </div>
+                <NewToDo addNewTask={this.addNewTask}/>
+              </div>
+            </div>
+          </div>
+
+          {/* Level Grind: Habits module */}
+          <div id="habit-grind" className="main-module">
+            <div className="module-head">
+              <h2>Level Grind</h2>
+            </div>
+            <div className="inner-body">
+              <div>
+                <HabitList habits={this.state.habits} getExp={this.updateExpBar}/>
+                <AddHabit addNewHabit={this.addNewHabit}/>                
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     );
   }
