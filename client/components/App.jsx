@@ -21,7 +21,12 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
+    transform: 'translate(-50%, -50%)',
+    border: '5px outset var(--gold)',
+    backgroundColor: 'var(--brown)'
+  },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.75)'
   }
 };
 
@@ -154,8 +159,7 @@ class App extends React.Component {
         </nav>
         <div id="main-field">
           <Modal isOpen={this.state.newUserModal} style={customStyles}>
-            <NewProfileModal createNewUser={this.createNewUser}/>
-            <button className='add-task-btn' onClick={this.toggleSignupModal}>Close Signup</button>
+            <NewProfileModal createNewUser={this.createNewUser}/>            
           </Modal>
           <Modal isOpen={this.state.showModal} style={customStyles}>
             {/* contentLabel="Minimal Modal Example" */}

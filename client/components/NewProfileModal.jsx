@@ -47,6 +47,10 @@ class newProfileModal extends React.Component {
   }
 
   checkLimit (e) {
+    if (this.state.values.includes(e.target) && e.target.checked === false) {
+      return this.state.values.splice(this.state.values.indexOf(e.target), 1);
+    }
+
     this.state.values.push(e.target);
     if (this.state.values.length > 6) {
       this.state.values[0].checked = false;
@@ -76,19 +80,30 @@ class newProfileModal extends React.Component {
       <div>
         <form id='new-user-form'>
           <label htmlFor='newUserName'>
-            Enter your name:
+            <span className='instructions'>
+              Enter your name: 
+            </span>
             <input id='newUserName' type='text' className='text-box' value={this.state.name} onChange={this.changeValue}></input>
           </label>
           <div>
-            <p>Pick Your 6 Core Values</p>
+            <p className='instructions'>Pick Your 6 Core Values</p>
             <div id='values-grid'>
               {renderValues}
             </div>
           </div>
           <div>
 
-              Upload a profile picture
-              <input type='file' accept='image/*' name='avatar' ref={this.fileInput} onChange={() => {console.log(this.fileInput.current.files[0])}}/>
+              <p className='instructions'>Upload a profile picture</p>
+              <label htmlFor='avatar'>
+                <p className='choose-file-btn clickable'>Choose File</p>
+              </label>
+                <input type='file' accept='image/*' name='avatar' id='avatar' ref={this.fileInput} 
+                  onChange={() => {
+                    console.log(this.fileInput.current.files[0]);
+                    document.getElementById('image-select-status').innerHTML = this.fileInput.current.files[0].name;
+                    }}/>
+                <p id='image-select-status'>No file chosen</p>
+
           </div>
           <button className='gem-btn' onClick={this.handleSubmit}>Submit</button>
         </form>
